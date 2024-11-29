@@ -6,7 +6,7 @@
 #    By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/19 15:53:44 by mgendrot          #+#    #+#              #
-#    Updated: 2024/11/29 14:11:46 by mgendrot         ###   ########.fr        #
+#    Updated: 2024/11/29 16:35:20 by mgendrot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ TERM_CLEAR_LINE     =   \033[2K\r
 #                                   Sources                                    #
 # **************************************************************************** #
 
-SRC_FILES       =   main utils
+SRC_FILES       =   main utils pipex error
 
 
 SRC_DIR         = src/
@@ -119,10 +119,7 @@ fclean: clean
 		$(RM) $(NAME); \
 		echo "$(CYAN)push_swap executable cleaned!$(DEF_COLOR)"; \
 	fi
-	@if [ -f $(CHECKER) ]; then \
-		$(RM) $(CHECKER); \
-		echo "$(CYAN)Checker bonus cleaned!$(DEF_COLOR)"; \
-	fi
+	
 	@$(MAKE) fclean -C $(LIBFT) -s
 
 re: fclean all

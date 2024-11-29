@@ -6,7 +6,7 @@
 /*   By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 16:12:09 by mgendrot          #+#    #+#             */
-/*   Updated: 2024/11/29 14:39:03 by mgendrot         ###   ########.fr       */
+/*   Updated: 2024/11/29 16:37:26 by mgendrot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,18 @@
 
 # define CMD_PATH "/bin/"
 
-char	*get_cmd_path(char *cmd, char **envp);
-char	**parse_cmd(char *cmd);
+
+
+# include <fcntl.h>
+# include <sys/wait.h>
+
+
+int 	pipex(char **argv, char **envp);
+void 	first_child(int fd[2], int file1, char *cmd, char **envp);
+void 	second_child(int fd[2], int file2, char *cmd, char **envp);
+void 	exec_cmd(char *cmd, char **envp);
+int 	error(char *msg);
+char *find_path(char *cmd, char **envp);
 
 #endif
+
