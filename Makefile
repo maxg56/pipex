@@ -6,13 +6,13 @@
 #    By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/19 15:53:44 by mgendrot          #+#    #+#              #
-#    Updated: 2024/11/28 16:37:19 by mgendrot         ###   ########.fr        #
+#    Updated: 2024/11/29 14:11:46 by mgendrot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Variables
 
-NAME        = push_swap
+NAME        = pipex
 
 INCLUDE     = include
 LIBFT       = libft/
@@ -45,13 +45,13 @@ TERM_CLEAR_LINE     =   \033[2K\r
 #                                   Sources                                    #
 # **************************************************************************** #
 
-SRC_FILES       =   main
+SRC_FILES       =   main utils
 
 
 SRC_DIR         = src/
 
 
-SRC			    =   
+SRC			    = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 
 OBJ_DIR         = obj/
 OBJ             = $(patsubst %.c, $(OBJ_DIR)%.o, $(SRC))

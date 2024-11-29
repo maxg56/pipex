@@ -6,7 +6,7 @@
 /*   By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 11:33:25 by mgendrot          #+#    #+#             */
-/*   Updated: 2024/11/28 16:11:24 by mgendrot         ###   ########.fr       */
+/*   Updated: 2024/11/29 14:58:26 by mgendrot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,15 @@
 # define GREEN "\033[0;92m"
 # define DEF_COLOR "\033[0;39m"
 
-typedef int	t_bool;
-
 # define TRUE 1
 # define FALSE 0
+
+typedef enum e_bool
+{
+	E_FALSE,
+	E_TRUE
+}	t_bool;
+
 
 # define BUFFER_SIZE 10
 # define FD 1
@@ -106,5 +111,6 @@ int		ft_print_u_fd(unsigned int n, int fd);
 int		ft_print_x_fd(unsigned int n, int format, int fd);
 
 int		ft_printf(const char *str, ...);
+int		ft_dprintf(int fd, const char *str, ...);
 
 #endif 

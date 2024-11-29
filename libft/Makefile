@@ -6,7 +6,7 @@
 #    By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/08 13:59:30 by mgendrot          #+#    #+#              #
-#    Updated: 2024/11/28 16:43:01 by mgendrot         ###   ########.fr        #
+#    Updated: 2024/11/29 13:40:54 by mgendrot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,8 @@ TERM_CLEAR_LINE     =   \033[2K\r
 
 FTPRINTF_DIR     =  ft_printf/
 FTPRINT       	=   ft_printf ft_print_c_fd ft_print_d_fd ft_print_x_fd \
-					ft_print_s_fd ft_print_p_fd ft_print_u_fd ft_print_pct_fd 
+					ft_print_s_fd ft_print_p_fd ft_print_u_fd ft_print_pct_fd \
+					ft_dprintf
 
 FTGNL_DIR	=	ft_gnl/
 FTGNL		=	get_next_line
