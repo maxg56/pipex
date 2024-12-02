@@ -6,14 +6,14 @@
 /*   By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 16:26:55 by mgendrot          #+#    #+#             */
-/*   Updated: 2024/11/29 16:34:05 by mgendrot         ###   ########.fr       */
+/*   Updated: 2024/12/02 12:55:43 by mgendrot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	error(char *msg)
+void	ft_print_error(char *str)
 {
-	perror(msg);
-	return (EXIT_FAILURE);
+	ft_dprintf(2, "%s%s\n%s",RED, str, DEF_COLOR);
+	exit(1);
 }

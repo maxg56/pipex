@@ -6,7 +6,7 @@
 /*   By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 13:31:03 by mgendrot          #+#    #+#             */
-/*   Updated: 2024/11/29 16:37:03 by mgendrot         ###   ########.fr       */
+/*   Updated: 2024/12/02 13:01:14 by mgendrot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	exec_cmd(char *cmd, char **envp)
 	args = ft_split(cmd, ' ');
 	path = find_path(args[0], envp);
 	if (!path)
-		error("Command not found");
+		ft_print_error("Command not found");
 	execve(path, args, envp);
 	perror("Execve error");
 	exit(EXIT_FAILURE);
@@ -72,4 +72,15 @@ char *find_path(char *cmd, char **envp) {
     }
     free_tab(paths);
     return (NULL); // Commande non trouvée
+}
+
+free_tab(char **tab)
+{
+    int i = 0;
+
+    while (tab[i]) {
+        free(tab[i]);
+        i++;
+    }
+    free(tab);
 }
