@@ -6,7 +6,7 @@
 /*   By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 17:35:14 by mlazzare          #+#    #+#             */
-/*   Updated: 2024/12/05 04:09:13 by mgendrot         ###   ########.fr       */
+/*   Updated: 2024/12/05 19:50:51 by mgendrot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int ac, char **ag, char **envp)
 	if (check_empty(ag[2]) || check_empty(ag[3]))
 		return (1);
 	f1 = open(ag[1], O_RDONLY);
-	f2 = open(ag[4], O_CREAT | O_RDWR | O_TRUNC, 0644);
+	f2 = open(ag[ac-1], O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (f1 < 0)
 		return (ft_putstr(strerror(errno), ag[1]));
 	if (f2 < 0)

@@ -6,19 +6,19 @@
 /*   By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 13:32:10 by mgendrot          #+#    #+#             */
-/*   Updated: 2024/11/29 13:34:24 by mgendrot         ###   ########.fr       */
+/*   Updated: 2024/12/05 18:02:13 by mgendrot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_printchar_fd(int c, int fd)
+static int	ft_printchar_fd(int c, int fd)
 {
 	write(fd, &c, 1);
 	return (1);
 }
 
-int	ft_formats(va_list args, const char format, int fd)
+static int	ft_formats(va_list args, const char format, int fd)
 {
 	int	print_length;
 

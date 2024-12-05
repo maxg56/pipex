@@ -6,7 +6,7 @@
 /*   By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 16:48:02 by mlazzare          #+#    #+#             */
-/*   Updated: 2024/12/05 04:09:32 by mgendrot         ###   ########.fr       */
+/*   Updated: 2024/12/05 18:05:30 by mgendrot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,10 +119,7 @@ int	check_cmd(t_cmd *c)
 		if (!cmd)
 			return (0);
 		if (access(cmd, X_OK) != -1)
-		{
-			free(cmd);
-			return (1);
-		}			
+			return (free(cmd), 1);
 		free(cmd);
 	}
 	error_msg(c->cmd);

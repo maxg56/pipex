@@ -6,7 +6,7 @@
 /*   By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 04:01:40 by mgendrot          #+#    #+#             */
-/*   Updated: 2024/12/05 04:13:43 by mgendrot         ###   ########.fr       */
+/*   Updated: 2024/12/05 18:03:20 by mgendrot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,3 @@ int		free_arr(char **path);
 void	free_struct(t_cmd *c);
 
 #endif
-

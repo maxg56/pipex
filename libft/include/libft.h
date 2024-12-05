@@ -6,7 +6,7 @@
 /*   By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 11:33:25 by mgendrot          #+#    #+#             */
-/*   Updated: 2024/11/29 14:58:26 by mgendrot         ###   ########.fr       */
+/*   Updated: 2024/12/05 18:03:10 by mgendrot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef enum e_bool
 	E_FALSE,
 	E_TRUE
 }	t_bool;
-
 
 # define BUFFER_SIZE 10
 # define FD 1
