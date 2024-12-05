@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/28 16:12:09 by mgendrot          #+#    #+#             */
-/*   Updated: 2024/12/02 13:00:22 by mgendrot         ###   ########.fr       */
+/*   Created: 2024/12/05 04:01:40 by mgendrot          #+#    #+#             */
+/*   Updated: 2024/12/05 04:13:43 by mgendrot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,41 @@
 # include <sys/wait.h>
 
 # define CMD_PATH "/bin/"
+# include <fcntl.h>
+# include <sys/wait.h>
+# include <errno.h>
+# include <string.h>
 
+# define PATH 5
+# define START 6
 
-int		pipex(char **argv, char **envp);
-void	first_child(int fd[2], int file1, char *cmd, char **envp);
-void	second_child(int fd[2], int file2, char *cmd, char **envp);
-void	exec_cmd(char *cmd, char **envp);
-void	ft_print_error(char *str);
-char 	*find_path(char *cmd, char **envp);
-int 	free_tab(char **tab);
+typedef struct s_cmd
+{
+	char	*cmd;
+	char	**path;
+	char	*args[100];
+	int		f;
+}	t_cmd;
+
+void	pipex(int f1, int f2, char **ag, char **ep);
+void	exec_cmd(t_cmd *cmd1, t_cmd *cmd2, char **envp);
+void	error_msg(char *c);
+int		check_cmd(t_cmd *c);
+int		check_empty(char *s);
+
+/*
+* STRING UTILS
+*/
+
+char	**ft_splitpath(char *s, char c);
+int		ft_putstr(char *s, char *t);
+
+/*
+* FREE
+*/
+
+int		free_arr(char **path);
+void	free_struct(t_cmd *c);
+
 #endif
 

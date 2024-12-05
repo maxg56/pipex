@@ -5,35 +5,95 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/29 16:25:57 by mgendrot          #+#    #+#             */
-/*   Updated: 2024/11/29 16:30:06 by mgendrot         ###   ########.fr       */
+/*   Created: 2021/07/20 17:40:47 by mlazzare          #+#    #+#             */
+/*   Updated: 2024/12/05 04:09:41 by mgendrot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	pipex(char **argv, char **envp) 
+static void	init_cmd(t_cmd *c, int f)
 {
-	int	fd[2];
-	int	file1;
-	int	file2;
+	c->f = f;
+	c->path = 0;
+	c->cmd = 0;
+	c->args[0] = 0;
+}
 
-	file1 = open(argv[1], O_RDONLY);
-	if (file1 < 0)
-		return (error("Error opening file1"));
-	file2 = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (file2 < 0)
-		return (error("Error opening file2"));
+static void	free_all(t_cmd *c, t_cmd *d)
+{
+	free_struct(c);
+	free_struct(d);
+}
 
-	if (pipe(fd) < 0)
-		return (error("Pipe error"));
-	if (fork() == 0)
-		first_child(fd, file1, argv[2], envp);
-	if (fork() == 0)
-		second_child(fd, file2, argv[3], envp);
-	close(fd[0]);
-	close(fd[1]);
-	waitpid(-1, NULL, 0);
-	waitpid(-1, NULL, 0);
-	return (0);
+static char	**get_path(char **ep)
+{
+	char	**ret;
+	char	*env;
+	int		i;
+
+	i = -1;
+	while (ep[++i])
+	{
+		if (!ft_strncmp(ep[i], "PATH=", PATH))
+		{
+			env = ft_substr(ep[i], START, ft_strlen(ep[i]));
+			if (!env)
+				return (NULL);
+			ret = ft_splitpath(env, ':');
+			if (!ret)
+			{
+				free(env);
+				return (NULL);
+			}
+			free (env);
+			return (ret);
+		}
+	}
+	return (NULL);
+}
+
+static int	get_cmd(char **ep, t_cmd *c, char *cmd)
+{
+	int		i;
+	char	**tmp;
+
+	i = -1;
+	c->path = get_path(ep);
+	if (!c->path)
+		return (0);
+	tmp = ft_splitpath(cmd, ' ');
+	if (!tmp)
+		return (0);
+	c->cmd = ft_substr(tmp[i + 1], 0, ft_strlen(tmp[i + 1]) - 1);
+	if (!c->cmd)
+		return (free_arr(tmp));
+	while (tmp[++i])
+	{
+		c->args[i] = ft_substr(tmp[i], 0, ft_strlen(tmp[i]) - 1);
+		if (!c->args[i])
+		{
+			free_arr(c->args);
+			return (free_arr(tmp));
+		}
+	}
+	c->args[i] = 0;
+	free_arr(tmp);
+	return (1);
+}
+
+void	pipex(int f1, int f2, char **ag, char **envp)
+{
+	t_cmd	cmd1;
+	t_cmd	cmd2;
+
+	init_cmd(&cmd1, f1);
+	init_cmd(&cmd2, f2);
+	if (!get_cmd(envp, &cmd1, ag[2]) || !get_cmd(envp, &cmd2, ag[3]))
+		return (free_all(&cmd1, &cmd2));
+	if (!check_cmd(&cmd1) || !check_cmd(&cmd2))
+		return (free_all(&cmd1, &cmd2));
+	exec_cmd(&cmd1, &cmd2, envp);
+	free_struct(&cmd1);
+	free_struct(&cmd2);
 }

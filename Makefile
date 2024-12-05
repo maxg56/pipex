@@ -6,13 +6,13 @@
 #    By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/19 15:53:44 by mgendrot          #+#    #+#              #
-#    Updated: 2024/11/29 16:35:20 by mgendrot         ###   ########.fr        #
+#    Updated: 2024/12/05 04:15:08 by mgendrot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Variables
 
-NAME        = pipex
+NAME        = pipex_ex
 
 INCLUDE     = include
 LIBFT       = libft/
@@ -45,7 +45,7 @@ TERM_CLEAR_LINE     =   \033[2K\r
 #                                   Sources                                    #
 # **************************************************************************** #
 
-SRC_FILES       =   main utils pipex error
+SRC_FILES       =   main free ft_splitpath pipex pipex_utils string_utils
 
 
 SRC_DIR         = src/
