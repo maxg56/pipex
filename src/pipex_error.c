@@ -1,34 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   string_utils.c                                     :+:      :+:    :+:   */
+/*   pipex_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/20 17:40:40 by mlazzare          #+#    #+#             */
-/*   Updated: 2024/12/05 04:13:36 by mgendrot         ###   ########.fr       */
+/*   Created: 2024/12/06 17:02:46 by mgendrot          #+#    #+#             */
+/*   Updated: 2024/12/06 17:26:59 by mgendrot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-
-
-int	ft_putstr(char *s, char *t)
+void	print_cmd_not_found_error(const char *cmd)
 {
-	if (!s)
-		return (2);
-	if (t)
-	{
-		write(2, "-bash: ", 7);
-		write(2, t, ft_strlen(t));
-		write(2, ": ", 2);
-	}
-	while (*s)
-	{
-		write(2, &(*s), 1);
-		s++;
-	}
-	write(2, "\n", 1);
-	return (2);
+	ft_dprintf(STDERR_FILENO, ERROR_CMD_NOT_FOUND,
+		RED,
+		g_pname,
+		cmd,
+		DEF_COLOR
+		);
+}
+
+void	print_no_such_file_error(const char *file)
+{
+	ft_dprintf(STDERR_FILENO, ERROR_NO_SUCH_FILE_INPUT,
+		RED,
+		g_pname,
+		file,
+		DEF_COLOR
+		);
+}
+
+void	print_gen_error(const char *error)
+{
+	ft_dprintf(STDERR_FILENO, error,
+		RED,
+		g_pname,
+		DEF_COLOR
+		);
 }

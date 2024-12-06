@@ -6,13 +6,13 @@
 #    By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/19 15:53:44 by mgendrot          #+#    #+#              #
-#    Updated: 2024/12/05 04:15:08 by mgendrot         ###   ########.fr        #
+#    Updated: 2024/12/06 15:41:09 by mgendrot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Variables
 
-NAME        = pipex_ex
+NAME        = pipex
 
 INCLUDE     = include
 LIBFT       = libft/

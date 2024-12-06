@@ -1,59 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   pipex_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:31:22 by mlazzare          #+#    #+#             */
-/*   Updated: 2024/12/05 04:04:45 by mgendrot         ###   ########.fr       */
+/*   Updated: 2024/12/06 18:39:20 by mgendrot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	free_arr(char **path)
+void	free_pipex(t_pipex **pipex)
 {
-	int	i;
+	t_cmd	*tmp;
+	t_cmd	*next;
 
-	i = 0;
-	while (path[i])
-		free(path[i++]);
-	if (path)
-		free(path);
-	return (0);
+	close((*pipex)->fd_infile);
+	close((*pipex)->fd_outfile);
+
+	if ((*pipex)->cmds)
+	{
+		tmp = (*pipex)->cmds;
+		while (tmp)
+		{
+			next = tmp->next;
+			free(tmp->cmd);
+			ft_free_array(tmp->argv);
+			free(tmp);
+			tmp = next;
+		}
+	}
+	free(*pipex);
 }
 
-void	free_struct(t_cmd *c)
-{
-	int	i;
-
-	i = 0;
-	if (c->cmd)
-		free(c->cmd);
-	free_arr(c->path);
-	while (c->args[i])
-		free(c->args[i++]);
-}
-
-int	check_empty(char *s)
+ft_free_array(char **array)
 {
 	int	i;
 
 	i = -1;
-	while (s[++i])
-	{
-		if (s[i] != ' ')
-			return (0);
-	}
-	ft_dprintf(2, "-bash: %s : command not found\n", s);
-	return (1);
-}
-
-void	error_msg(char *c)
-{
-	write(2, "-bash: ", 7);
-	write(2, c, ft_strlen(c));
-	write(2, ": ", 2);
-	write(2, "command not found\n", 18);
+	while (array[++i])
+		free(array[i]);
+	free(array);
 }
