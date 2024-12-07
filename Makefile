@@ -6,7 +6,7 @@
 #    By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/19 15:53:44 by mgendrot          #+#    #+#              #
-#    Updated: 2024/12/06 15:41:09 by mgendrot         ###   ########.fr        #
+#    Updated: 2024/12/07 15:38:29 by mgendrot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ TERM_CLEAR_LINE     =   \033[2K\r
 #                                   Sources                                    #
 # **************************************************************************** #
 
-SRC_FILES       =   main free ft_splitpath pipex pipex_utils string_utils
+SRC_FILES       =   main pipex_utils pipex_error pipex_exec
 
 
 SRC_DIR         = src/

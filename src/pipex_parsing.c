@@ -1,39 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_parse.c                                      :+:      :+:    :+:   */
+/*   pipex_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/06 18:12:24 by mgendrot          #+#    #+#             */
-/*   Updated: 2024/12/06 19:19:43 by mgendrot         ###   ########.fr       */
+/*   Created: 2024/11/29 16:18:47 by cpoulain          #+#    #+#             */
+/*   Updated: 2024/12/04 15:49:43 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_utils.h"
+#include "libft.h"
 
-int	parse_input(int argc, char **argv, t_pipex *pipex)
+int	parse_input(
+	int argc,
+	char **argv,
+	t_pipex *pipex
+)
 {
 	int	here_doc;
 	int	out_flags;
 
 	if (argc < 2)
-		return (print_gen_error(ERROR_MISSING_ARGS), RET_KO);
+		return (print_gen_error(ERROR_MISSING_ARGS), RET_ERR);
 	here_doc = ft_strcmp(argv[1], HERE_DOC) == 0;
 	pipex->cmd_count = argc - (3 + here_doc);
 	if (argc - (3 + here_doc * 2) < 0)
-		return (print_gen_error(ERROR_MISSING_ARGS), RET_KO);
+		return (print_gen_error(ERROR_MISSING_ARGS), RET_ERR);
 	out_flags = O_WRONLY | O_CREAT | O_TRUNC;
 	if (here_doc)
 	{
 		if (read_here_doc(argv[2], pipex) != RET_OK)
-			return (print_gen_error(ERROR_HERE_DOC_INT), RET_KO);
+			return (RET_ERR);
 		out_flags = (out_flags & ~O_TRUNC) | O_APPEND;
 	}
 	else
 		pipex->fd_infile = open(argv[1], O_RDONLY);
 	if (handle_in_out_fd(argc, argv, pipex, out_flags) != RET_OK)
-		return (RET_KO);
+		return (RET_ERR);
 	return (parse_commands(argv + 2 + here_doc, pipex));
 }
 
@@ -45,7 +50,7 @@ int	parse_commands(
 	unsigned int	curr_cmd;
 
 	curr_cmd = 0;
-	pipex->cmds = malloc(sizeof(t_command) * pipex->cmd_count);
+	pipex->commands = malloc(sizeof(t_command) * pipex->cmd_count);
 	if (!pipex->commands)
 		return (free_pipex(pipex), print_gen_error(ERROR_INT), RET_ERR);
 	while (curr_cmd < pipex->cmd_count)

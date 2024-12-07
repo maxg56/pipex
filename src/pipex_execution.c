@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_exp                                          :+:      :+:    :+:   */
+/*   pipex_execution.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/06 18:47:27 by mgendrot          #+#    #+#             */
-/*   Updated: 2024/12/06 18:50:10 by mgendrot         ###   ########.fr       */
+/*   Created: 2024/12/02 13:04:22 by cpoulain          #+#    #+#             */
+/*   Updated: 2024/12/04 15:36:30 by cpoulain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_utils.h"
 
 int	do_command_pipe(t_pipex *pipex, int cmd_idx)
 {
 	pid_t	cmd_pid;
 	int		p_fd[2];
 
-	if (pipe(pipex->cmd->fd) == -1)
+	if (pipe(p_fd) == -1)
 		return (print_gen_error(ERROR_INT_PIPE), RET_ERR);
 	cmd_pid = fork();
 	if (cmd_pid == -1)
