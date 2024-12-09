@@ -6,7 +6,7 @@
 #    By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/19 15:53:44 by mgendrot          #+#    #+#              #
-#    Updated: 2024/12/07 15:38:29 by mgendrot         ###   ########.fr        #
+#    Updated: 2024/12/09 20:30:04 by mgendrot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ TERM_CLEAR_LINE     =   \033[2K\r
 #                                   Sources                                    #
 # **************************************************************************** #
 
-SRC_FILES       =   main pipex_utils pipex_error pipex_exec
+SRC_FILES       =   main pipex_error pipex_execution pipex_structure  pipex_pathing  pipex_parsing pipex_execution
 
 
 SRC_DIR         = src/

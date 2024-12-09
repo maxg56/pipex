@@ -6,7 +6,7 @@
 /*   By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 04:01:40 by mgendrot          #+#    #+#             */
-/*   Updated: 2024/12/07 16:28:28 by mgendrot         ###   ########.fr       */
+/*   Updated: 2024/12/09 20:30:37 by mgendrot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 // Includes
 
 # include "libft.h"
+
 # include <fcntl.h>
-# include <unistd.h>
 # include <stdlib.h>
 # include <sys/wait.h>
 
@@ -62,15 +62,17 @@
 
 // Utils define
 
-# define BUFFER_SIZE				4096
-
-# define RET_OK						0
-# define RET_ERR					1
-# define RET_CMD_NOT_FOUND			127
-# define RET_EXECUTION_ERROR		126
-
 # define PIPE_READ					0
 # define PIPE_WRITE					1
+
+typedef enum e_ret
+{
+	RET_OK = 0,
+	RET_ERR = 1,
+	RET_CMD_NOT_FOUND = 127,
+	RET_EXECUTION_ERROR = 126
+}	t_ret;
+
 
 // Paths
 
@@ -78,18 +80,17 @@
 # define ENVP_PATH_SEPARATOR		':'
 # define TMP_EMPTY_PATH				"/tmp/pipex_empty"
 
-// Global variable
-
 // Holds the program name
+
 extern char	*g_pname;
 extern char	**g_envp;
 
 // Structures
 
-typedef struct s_command
+typedef struct s_cmd
 {
 	char	**argv;
-}	t_command;
+}	t_cmd;
 
 typedef struct s_pipex
 {
@@ -97,51 +98,40 @@ typedef struct s_pipex
 	int			fd_outfile;
 	char		**paths;
 	size_t		cmd_count;
-	t_command	*commands;
 	int			*pid_list;
+	t_cmd		*commands;
 }	t_pipex;
 
-// Functions
+// Error handling functions
 
-// Error functions
-
-void	print_gen_error(const char *error);
+void	print_error(const char *error_format);
 void	print_cmd_not_found_error(const char *cmd);
 void	print_no_such_file_error(const char *file);
 
 // Structure handling functions
 
-void	free_double_tab(char	***arr);
+t_ret	init_pipex(int argc, char **argv, t_pipex *pipex);
 void	free_pipex(t_pipex *pipex);
 void	free_commands(t_pipex *pipex);
-int		init_pipex(int argc, char **argv, t_pipex *pipex);
 
-// Fd handling functions
-
-int		handle_in_out_fd(int argc, char **argv, t_pipex *pipex, int out_flags);
-int		redirect_in_to_empty(t_pipex *pipex);
 
 // Path functions
 
 char	**get_paths(void);
 char	*get_absolute_path(char *command, char **paths);
-char	*handle_relative_command(char *command);
 
 // Parsing functions
 
-int		parse_input(int argc, char **argv, t_pipex *pipex);
-int		parse_commands(char **argv, t_pipex *pipex);
+t_ret	parse_input(int argc, char **argv, t_pipex *pipex);
 
 // Here_doc function
 
-int		read_here_doc(const char *limiter, t_pipex *pipex);
+t_ret	read_here_doc(const char *limiter, t_pipex *pipex);
 
 // Execution
 
-int		do_command_pipe(t_pipex *pipex, int cmd_idx);
 void	execute_command(t_pipex *pipex, int cmd_idx, int p_fd[2]);
-int		handle_child_status(int child_status, char *cmd_name);
-int		execute_commands(t_pipex *pipex);
+t_ret	execute_commands(t_pipex *pipex);
 
 #endif
 

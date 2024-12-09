@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:51:48 by cpoulain          #+#    #+#             */
-/*   Updated: 2024/12/03 15:28:13 by cpoulain         ###   ########.fr       */
+/*   Updated: 2024/12/07 23:47:32 by mgendrot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_utils.h"
+#include "pipex.h"
 
 char	*g_pname;
 char	**g_envp;

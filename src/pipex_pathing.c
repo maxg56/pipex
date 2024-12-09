@@ -3,15 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_pathing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/27 16:45:23 by cpoulain          #+#    #+#             */
-/*   Updated: 2024/12/04 14:21:38 by cpoulain         ###   ########.fr       */
+/*   Created: 2024/12/07 23:33:45 by mgendrot          #+#    #+#             */
+/*   Updated: 2024/12/09 19:36:55 by mgendrot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "pipex_utils.h"
+#include "pipex.h"
+
+static char	*ft_strjoin3(char *s1, char *s2, char *s3)
+{
+	char	*res;
+	size_t	len1;
+	size_t	len2;
+	size_t	len3;
+
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	len3 = ft_strlen(s3);
+	res = malloc(len1 + len2 + len3 + 1);
+	if (!res)
+		return (NULL);
+	ft_memcpy(res, s1, len1);
+	ft_memcpy(res + len1, s2, len2);
+	ft_memcpy(res + len1 + len2, s3, len3 + 1);
+	return (res);
+}
+
+static char	*handle_relative_command(char *command)
+{
+	if (access(command, F_OK | X_OK) == 0)
+		return (command);
+	return (NULL);
+}
 
 char	**get_paths(void)
 {
@@ -19,15 +44,14 @@ char	**get_paths(void)
 	char	*path;
 
 	envp = g_envp;
-	while (envp)
+	while (*envp)
 	{
-		if (ft_strncmp(*envp, ENVP_PATH, sizeof(ENVP_PATH) - 1) != 0)
+		if (ft_strncmp(*envp, ENVP_PATH, sizeof(ENVP_PATH) - 1) == 0)
 		{
-			++envp;
-			continue ;
+			path = (*envp) + sizeof(ENVP_PATH) - 1;
+			return (ft_split(path, ENVP_PATH_SEPARATOR));
 		}
-		path = (*envp) + sizeof(ENVP_PATH) - 1;
-		return (ft_split(path, ENVP_PATH_SEPARATOR));
+		++envp;
 	}
 	return (NULL);
 }
@@ -35,22 +59,14 @@ char	**get_paths(void)
 char	*get_absolute_path(char *command, char **paths)
 {
 	char	*res;
-	size_t	command_size;
-	size_t	path_size;
 
 	if (ft_strncmp(command, "./", 2) == 0)
 		return (handle_relative_command(command));
-	command_size = ft_strlen(command);
 	while (*paths)
 	{
-		path_size = ft_strlen(*paths);
-		res = malloc((path_size + command_size + 2));
+		res = ft_strjoin3(*paths, "/", command);
 		if (!res)
 			return (NULL);
-		ft_memcpy(res, *paths, path_size);
-		ft_memcpy(res + path_size + 1, command, command_size);
-		res[path_size] = '/';
-		res[command_size + path_size + 1] = '\0';
 		if (access(res, F_OK | X_OK) == 0)
 			return (res);
 		free(res);
@@ -59,9 +75,4 @@ char	*get_absolute_path(char *command, char **paths)
 	return (NULL);
 }
 
-char	*handle_relative_command(char *command)
-{
-	if (access(command, F_OK | X_OK) == 0)
-		return (command);
-	return (NULL);
-}
+

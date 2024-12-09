@@ -3,16 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_structure.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpoulain <cpoulain@student.42lehavre.fr>   +#+  +:+       +#+        */
+/*   By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/27 18:20:59 by cpoulain          #+#    #+#             */
-/*   Updated: 2024/12/02 21:31:08 by cpoulain         ###   ########.fr       */
+/*   Created: 2024/12/07 19:25:44 by mgendrot          #+#    #+#             */
+/*   Updated: 2024/12/09 20:13:59 by mgendrot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_utils.h"
+#include "pipex.h"
 
-int	init_pipex(int argc, char **argv, t_pipex *pipex)
+static void	free_double_tab(char	***arr)
+{
+	int	i;
+
+	if (!arr || !*arr)
+		return ;
+	i = 0;
+	while ((*arr)[i])
+	{
+		free((*arr)[i]);
+		(*arr)[i] = NULL;
+		i++;
+	}
+	free(*arr);
+	*arr = NULL;
+}
+
+t_ret	init_pipex(int argc, char **argv, t_pipex *pipex)
 {
 	pipex->fd_infile = -1;
 	pipex->fd_outfile = -1;
@@ -20,10 +37,10 @@ int	init_pipex(int argc, char **argv, t_pipex *pipex)
 		return (RET_ERR);
 	pipex->paths = get_paths();
 	if (!pipex->paths)
-		return (free_pipex(pipex), print_gen_error(ERROR_PATH), RET_ERR);
+		return (free_pipex(pipex), print_error(ERROR_PATH), RET_ERR);
 	pipex->pid_list = malloc(sizeof(int) * (pipex->cmd_count));
 	if (!pipex->pid_list)
-		return (free_pipex(pipex), print_gen_error(ERROR_INT), RET_ERR);
+		return (free_pipex(pipex), print_error(ERROR_INT), RET_ERR);
 	return (RET_OK);
 }
 
@@ -57,19 +74,4 @@ void	free_commands(t_pipex *pipex)
 		free(pipex->commands);
 		pipex->commands = NULL;
 	}
-}
-
-void	free_double_tab(char	***arr)
-{
-	int	i;
-
-	i = 0;
-	while ((*arr)[i])
-	{
-		free((*arr)[i]);
-		(*arr)[i] = NULL;
-		i++;
-	}
-	free(*arr);
-	*arr = NULL;
 }
