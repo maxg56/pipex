@@ -6,7 +6,7 @@
 /*   By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 23:37:20 by mgendrot          #+#    #+#             */
-/*   Updated: 2024/12/09 20:10:06 by mgendrot         ###   ########.fr       */
+/*   Updated: 2024/12/10 01:05:18 by mgendrot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ static t_ret	parse_commands(char **argv, t_pipex *pipex)
 	unsigned int	curr_cmd;
 
 	curr_cmd = 0;
-	pipex->commands = malloc(sizeof(t_cmd) * pipex->cmd_count);
-	if (!pipex->commands)
+	pipex->cmd = malloc(sizeof(t_cmd) * pipex->cmd_count);
+	if (!pipex->cmd)
 		return (free_pipex(pipex), print_error(ERROR_INT), RET_ERR);
 	while (curr_cmd < pipex->cmd_count)
 	{
-		pipex->commands[curr_cmd].argv = ft_split(argv[curr_cmd], ' ');
-		if (!pipex->commands[curr_cmd++].argv)
+		pipex->cmd[curr_cmd].argv = ft_split(argv[curr_cmd], ' ');
+		if (!pipex->cmd[curr_cmd++].argv)
 			return (free_pipex(pipex), print_error(ERROR_INT), RET_ERR);
 	}
 	return (RET_OK);

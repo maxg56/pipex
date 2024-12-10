@@ -6,7 +6,7 @@
 /*   By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 23:33:45 by mgendrot          #+#    #+#             */
-/*   Updated: 2024/12/09 19:36:55 by mgendrot         ###   ########.fr       */
+/*   Updated: 2024/12/10 01:02:40 by mgendrot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,3 @@ char	*get_absolute_path(char *command, char **paths)
 	}
 	return (NULL);
 }
-
-

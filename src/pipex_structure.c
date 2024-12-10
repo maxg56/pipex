@@ -6,7 +6,7 @@
 /*   By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 19:25:44 by mgendrot          #+#    #+#             */
-/*   Updated: 2024/12/09 20:13:59 by mgendrot         ###   ########.fr       */
+/*   Updated: 2024/12/09 20:57:15 by mgendrot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,16 @@ void	free_commands(t_pipex *pipex)
 {
 	size_t	i;
 
-	if (pipex->commands)
+	if (pipex->cmd)
 	{
 		i = 0;
 		while (i < pipex->cmd_count)
 		{
-			if (pipex->commands[i].argv)
-				free_double_tab(&(pipex->commands[i].argv));
+			if (pipex->cmd[i].argv)
+				free_double_tab(&(pipex->cmd[i].argv));
 			i++;
 		}
-		free(pipex->commands);
-		pipex->commands = NULL;
+		free(pipex->cmd);
+		pipex->cmd = NULL;
 	}
 }

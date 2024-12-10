@@ -3,5 +3,6 @@
 .compiled_count
 *.o
 *.out
+libft.a
 pipex
 pipex_bonus

@@ -6,13 +6,12 @@
 /*   By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 04:01:40 by mgendrot          #+#    #+#             */
-/*   Updated: 2024/12/09 20:30:37 by mgendrot         ###   ########.fr       */
+/*   Updated: 2024/12/09 20:57:25 by mgendrot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
-
 
 // Includes
 
@@ -98,8 +97,8 @@ typedef struct s_pipex
 	int			fd_outfile;
 	char		**paths;
 	size_t		cmd_count;
+	t_cmd		*cmd;
 	int			*pid_list;
-	t_cmd		*commands;
 }	t_pipex;
 
 // Error handling functions
@@ -130,8 +129,6 @@ t_ret	read_here_doc(const char *limiter, t_pipex *pipex);
 
 // Execution
 
-void	execute_command(t_pipex *pipex, int cmd_idx, int p_fd[2]);
 t_ret	execute_commands(t_pipex *pipex);
 
 #endif
-
