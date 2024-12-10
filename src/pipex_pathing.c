@@ -6,7 +6,7 @@
 /*   By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 23:33:45 by mgendrot          #+#    #+#             */
-/*   Updated: 2024/12/10 01:02:40 by mgendrot         ###   ########.fr       */
+/*   Updated: 2024/12/10 04:00:26 by mgendrot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*get_absolute_path(char *command, char **paths)
 {
 	char	*res;
 
-	if (ft_strncmp(command, "./", 2) == 0)
+	if (ft_strchr(command, '/'))
 		return (handle_relative_command(command));
 	while (*paths)
 	{

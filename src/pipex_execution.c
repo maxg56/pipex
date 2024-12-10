@@ -6,7 +6,7 @@
 /*   By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 23:35:18 by mgendrot          #+#    #+#             */
-/*   Updated: 2024/12/10 01:01:34 by mgendrot         ###   ########.fr       */
+/*   Updated: 2024/12/10 03:23:14 by mgendrot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,6 @@ static t_ret	handle_child_status(int child_status, char *cmd_name)
 {
 	if (child_status == 127)
 		return (print_cmd_not_found_error(cmd_name), RET_ERR);
-	else if (child_status != 0
-		&& (child_status != 1 && ft_strncmp(cmd_name, "grep", 4) != 0))
-		return (print_error(ERROR_CHILD_EXECUTION), RET_ERR);
 	return (RET_OK);
 }
 

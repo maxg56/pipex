@@ -6,7 +6,7 @@
 /*   By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:50:23 by mgendrot          #+#    #+#             */
-/*   Updated: 2024/12/09 20:44:14 by mgendrot         ###   ########.fr       */
+/*   Updated: 2024/12/10 03:50:40 by mgendrot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_ret	read_here_doc(const char *limiter, t_pipex *pipex)
 		return (print_error(ERROR_HERE_DOC_OPEN_TMP), RET_ERR);
 	ft_printf(HERE_DOC_PREFIX);
 	line = get_next_line(STDIN_FILENO);
-	while (line && ft_strncmp(line, limiter, ft_strlen(limiter) - 1))
+	while (line && ft_strncmp(line, limiter, ft_strlen(line) - 1))
 	{
 		ft_dprintf(pipex->fd_infile, line);
 		(ft_printf(HERE_DOC_PREFIX), free(line));
