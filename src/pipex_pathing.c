@@ -6,30 +6,11 @@
 /*   By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 23:33:45 by mgendrot          #+#    #+#             */
-/*   Updated: 2024/12/10 04:00:26 by mgendrot         ###   ########.fr       */
+/*   Updated: 2024/12/11 22:21:40 by mgendrot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-static char	*ft_strjoin3(char *s1, char *s2, char *s3)
-{
-	char	*res;
-	size_t	len1;
-	size_t	len2;
-	size_t	len3;
-
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	len3 = ft_strlen(s3);
-	res = malloc(len1 + len2 + len3 + 1);
-	if (!res)
-		return (NULL);
-	ft_memcpy(res, s1, len1);
-	ft_memcpy(res + len1, s2, len2);
-	ft_memcpy(res + len1 + len2, s3, len3 + 1);
-	return (res);
-}
 
 static char	*handle_relative_command(char *command)
 {
